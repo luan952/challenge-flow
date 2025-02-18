@@ -17,7 +17,7 @@ namespace Flow.Infra.MessageBrokers
         {
             _topic = topic;
             var config = new ProducerConfig{ 
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = bootstrapServers,
                 SecurityProtocol = SecurityProtocol.Plaintext
                 };
             _producer = new ProducerBuilder<string, string>(config).Build();

@@ -1,9 +1,11 @@
 using Flow.Application.UseCases.Transaction;
 using Flow.Core.Repositories;
+using Flow.Core.Security.Tokens;
 using Flow.Infra.Data;
 using Flow.Infra.MessageBrokers;
 using Flow.Infra.Migrations;
 using Flow.Infra.Repositories;
+using Flow.Infra.Tokens;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,10 @@ builder.Services.AddDbContext<RelationalDbContext>(options =>
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>();
+builder.Services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
+
+builder.Services.AddScoped<ITokenGenerate, TokenGenerate>();
+builder.Services.AddScoped<ITokenValidate, TokenValidate>();
 
 
 var kafkaSection = builder.Configuration.GetSection("Kafka");

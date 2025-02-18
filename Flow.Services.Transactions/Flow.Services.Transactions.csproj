@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Flow.Application\Flow.Application.csproj" />
     <ProjectReference Include="..\Flow.Infra\Flow.Infra.csproj" />
+    <ProjectReference Include="..\Shared\Flow.Exceptions\Flow.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flow.Services.Transactions"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flow.Services.Consolidated", "Flow.Services.Consolidated\Flow.Services.Consolidated.csproj", "{99A7EE43-9D70-4B2B-9993-F405D940C9C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Application", "Flow.Application\Flow.Application.csproj", "{23271B67-9972-45AF-A16B-F4129A97BFE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flow.Application", "Flow.Application\Flow.Application.csproj", "{23271B67-9972-45AF-A16B-F4129A97BFE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{ACAA58FF-C875-4A0B-BE15-32C1ECFCC946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Exceptions", "Shared\Flow.Exceptions\Flow.Exceptions.csproj", "{DC425DF0-EB48-49ED-86AA-448DB34A5DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{23271B67-9972-45AF-A16B-F4129A97BFE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23271B67-9972-45AF-A16B-F4129A97BFE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23271B67-9972-45AF-A16B-F4129A97BFE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC425DF0-EB48-49ED-86AA-448DB34A5DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC425DF0-EB48-49ED-86AA-448DB34A5DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC425DF0-EB48-49ED-86AA-448DB34A5DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC425DF0-EB48-49ED-86AA-448DB34A5DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC425DF0-EB48-49ED-86AA-448DB34A5DD3} = {ACAA58FF-C875-4A0B-BE15-32C1ECFCC946}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF5B4E39-94E5-4638-83C9-482D57CDEBE1}
