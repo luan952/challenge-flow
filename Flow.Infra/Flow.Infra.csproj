@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flow.Core\Flow.Core.csproj" />
+    <ProjectReference Include="..\Shared\Flow.Exceptions\Flow.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
+using Flow.Application.MessageBrokers;
 using Flow.Core.DTOs;
 using Flow.Core.Repositories;
-using Flow.Core.Entities;
-using Flow.Infra.MessageBrokers;
 
 namespace Flow.Application.UseCases.Transaction
 {

@@ -1,38 +1,23 @@
-using Flow.Application.UseCases.Transaction;
-using Flow.Core.Repositories;
+using Flow.Application;
+using Flow.Application.MessageBrokers;
 using Flow.Core.Security.Tokens;
+using Flow.Infra;
 using Flow.Infra.Data;
-using Flow.Infra.MessageBrokers;
 using Flow.Infra.Migrations;
-using Flow.Infra.Repositories;
 using Flow.Infra.Tokens;
+using Flow.Services.Transactions.Filters;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<RelationalDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RelationalDb"),
-        sqlOptions => sqlOptions.MigrationsAssembly("Flow.Infra")));
+builder.Services.AddDependencyInjectionTransactionInfra(builder.Configuration);
+builder.Services.AddDependencyInjectionTransactionApplication(builder.Configuration);
 
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
-builder.Services.AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>();
-builder.Services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
-
-builder.Services.AddScoped<ITokenGenerate, TokenGenerate>();
-builder.Services.AddScoped<ITokenValidate, TokenValidate>();
-
-
-var kafkaSection = builder.Configuration.GetSection("Kafka");
-
-builder.Services.AddSingleton(new KafkaProducer(
-        kafkaSection["BootstrapServers"],
-        kafkaSection["Topic"]
-    ));
-
+builder.Services.AddScoped<AuthenticatedUserFilter>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -53,7 +38,33 @@ builder.Services.Configure<SelectingProcessorAccessorOptions>(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 

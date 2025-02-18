@@ -1,7 +1,6 @@
 using Flow.Application.UseCases.Consolidated;
 using Flow.Infra.Data;
 using Flow.Services.Consolidated.Consumers;
-using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 

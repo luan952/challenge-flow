@@ -12,11 +12,14 @@ namespace Flow.Infra.Migrations
             using var myConnection = new SqlConnection(connectionString);
 
             var query = @"
-            SELECT name 
-            FROM sys.databases 
-            WHERE name = @name";
+                SELECT name 
+                FROM sys.databases 
+                WHERE name = @name";
 
             var parameters = new { name = databaseName };
+
+            // Tente abrir a conexão
+            myConnection.Open();
 
             var registers = myConnection.Query<string>(query, parameters);
 

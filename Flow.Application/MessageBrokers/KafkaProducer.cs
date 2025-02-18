@@ -1,12 +1,7 @@
 ﻿using Confluent.Kafka;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace Flow.Infra.MessageBrokers
+namespace Flow.Application.MessageBrokers
 {
     public class KafkaProducer
     {
