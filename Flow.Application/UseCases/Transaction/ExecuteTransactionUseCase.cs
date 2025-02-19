@@ -1,6 +1,7 @@
 using Flow.Application.MessageBrokers;
 using Flow.Core.DTOs;
 using Flow.Core.Repositories;
+using Flow.Exceptions;
 
 namespace Flow.Application.UseCases.Transaction
 {
@@ -25,6 +26,18 @@ namespace Flow.Application.UseCases.Transaction
             await _transactionRepository.AddTransaction(transaction);
             await _unityOfWork.Commit();
             await _kafkaProducer.ProduceAsync(transaction);
+        }
+
+        private static void Validate(TransactionDTO request)
+        {
+            var validator = new ExecuteTransactionValidator();
+
+            var result = validator.Validate(request);
+
+            if (!result.IsValid)
+            {
+                throw new FlowException(result.ToString());
+            }
         }
     }
 }

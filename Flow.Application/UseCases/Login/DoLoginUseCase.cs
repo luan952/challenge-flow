@@ -18,6 +18,8 @@ namespace Flow.Application.UseCases.Login
 
         public async Task<string> Execute(DoLoginRequest request)
         {
+            Validate(request);
+
             var user = await _userReadOnlyRepository.GetUserByLogin(request.Login);
             if (user == null)
             {
@@ -30,6 +32,18 @@ namespace Flow.Application.UseCases.Login
             }
 
             return _tokenGenerate.GenerateToken(user.Id);
+        }
+
+        private static void Validate(DoLoginRequest request)
+        {
+            var validator = new DoLoginValidator();
+
+            var result = validator.Validate(request);
+
+            if (!result.IsValid)
+            {
+                throw new FlowException(result.ToString());
+            }
         }
     }
 }
