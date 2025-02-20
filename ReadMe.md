@@ -20,7 +20,7 @@ Este projeto consiste em duas APIs que trabalham juntas para processar transaç�
 - **SQL Server** - Banco de dados para armazenar transações.
 - **MongoDB** - Banco de dados para armazenar o saldo consolidado.
 - **Kafka** - Mensageria para comunicação entre os serviços.
-- **Docker** - Utilizado para rodar instâncias do SQL Server e MongoDB.
+- **Docker** - Utilizado para rodar instâncias do SQL Server, MongoDB e Kafka + Zookeeper.
 
 ---
 
@@ -46,7 +46,7 @@ dotnet run
 
 ### 3 Configurando a API de Saldo Diário
 
-1. Navegue até a pasta `Flow.Services.DailyBalance` e abra o arquivo `appsettings.json`.
+1. Navegue até a pasta `Flow.Services.Consolidated` e abra o arquivo `appsettings.json`.
 2. Verifique se as configurações do MongoDB estão corretas.
 2. Rode a API:
 
