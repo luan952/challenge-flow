@@ -157,6 +157,22 @@ curl -X 'GET' \
 
 ---
 
+## Testes
+
+O projeto inclui testes para os casos de uso (UseCases) e validações (Validators). Para executar os testes, utilize o seguinte comando:
+
+```sh
+  dotnet test
+```
+
+Os testes garantem que as principais funcionalidades, como a execução de transações e validações de entrada, funcionem corretamente.
+
+Exemplos de testes implementados:
+
+UseCases: Teste de execução de transações simulando a interação com repositórios.
+
+Validators: Teste de validação de transações, verificando valores inválidos e tipos incorretos.
+
 ## 🚨 Possíveis Problemas e Soluções
 
 ### ❌ Erro de conexão com o SQL Server
