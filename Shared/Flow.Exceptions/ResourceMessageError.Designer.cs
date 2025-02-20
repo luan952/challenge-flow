@@ -61,11 +61,11 @@ namespace Flow.Exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The email field cannot be empty..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The login field cannot be empty..
         /// </summary>
-        public static string email_empty_error {
+        public static string login_empty_error {
             get {
-                return ResourceManager.GetString("email_empty_error", resourceCulture);
+                return ResourceManager.GetString("login_empty_error", resourceCulture);
             }
         }
         
@@ -84,6 +84,15 @@ namespace Flow.Exceptions {
         public static string transaction_type_empty_error {
             get {
                 return ResourceManager.GetString("transaction_type_empty_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The type field of transaction is not valid..
+        /// </summary>
+        public static string transaction_type_invalid_error {
+            get {
+                return ResourceManager.GetString("transaction_type_invalid_error", resourceCulture);
             }
         }
         

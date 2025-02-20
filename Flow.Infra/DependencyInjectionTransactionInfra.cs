@@ -39,6 +39,7 @@ namespace Flow.Infra
         {
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
+            services.AddScoped<IDailyBalanceRepository, DailyBalanceRepository>();
         }
 
         public static void AddUnityOfWork(IServiceCollection services)

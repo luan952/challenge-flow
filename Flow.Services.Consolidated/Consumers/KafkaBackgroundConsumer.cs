@@ -1,6 +1,8 @@
 ﻿
 using Confluent.Kafka;
 using Flow.Core.Entities;
+using Flow.Core.Enums;
+using Flow.Exceptions;
 using Flow.Infra.Data;
 using MongoDB.Driver;
 using System.Text.Json;
@@ -34,7 +36,7 @@ namespace Flow.Services.Consolidated.Consumers
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            _consumer = new ConsumerBuilder<string, string>(_consumerConfig).Build(); // Instancia o consumidor uma única vez
+            _consumer = new ConsumerBuilder<string, string>(_consumerConfig).Build();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -87,9 +89,9 @@ namespace Flow.Services.Consolidated.Consumers
 
             decimal value = transaction.Type switch
             {
-                "credit" => transaction.Value,
-                "debit" => -transaction.Value,
-                _ => throw new InvalidOperationException("Invalid transaction type")
+                TypeTransaction.Credit => transaction.Value,
+                TypeTransaction.Debit => -transaction.Value,
+                _ => throw new FlowException("Invalid transaction type")
             };
 
             if (dailyBalance is null)

@@ -20,7 +20,7 @@ namespace Flow.Infra.Migrations.Versions
             Create.Table("Transactions")
                 .WithColumn("Id").AsGuid().PrimaryKey()
                 .WithColumn("Value").AsDecimal().NotNullable()
-                .WithColumn("Type").AsString().NotNullable()
+                .WithColumn("Type").AsByte().NotNullable()
                 .WithColumn("Date").AsDateTime().NotNullable();
         }
     }

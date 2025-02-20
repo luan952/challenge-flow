@@ -93,7 +93,7 @@ void UpdateDatabase()
     using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
     using var context = serviceScope.ServiceProvider.GetService<RelationalDbContext>();
 
-    var connection = builder.Configuration.GetConnectionString("RelationalDb");
+    var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
     Database.CreateDatabase(connection);
     app.DatabaseMigrate();

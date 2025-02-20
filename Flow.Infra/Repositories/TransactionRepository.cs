@@ -1,6 +1,7 @@
 ﻿using Flow.Core.Entities;
 using Flow.Core.Repositories;
 using Flow.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flow.Infra.Repositories
 {
@@ -14,5 +15,7 @@ namespace Flow.Infra.Repositories
 
         public async Task AddTransaction(Transaction transaction) =>
             await _context.Transactions.AddAsync(transaction);
+
+        public async Task<List<Transaction>> Transactions() => await _context.Transactions.ToListAsync();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Flow.Application.MessageBrokers;
 using Flow.Application.UseCases.Login;
 using Flow.Application.UseCases.Transaction;
+using Flow.Core.Security.Tokens;
+using Flow.Infra.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,11 +25,7 @@ namespace Flow.Application
         public static void AddKafka(IServiceCollection services, IConfiguration configuration)
         {
             var kafkaSection = configuration.GetSection("Kafka");
-
-            services.AddSingleton(new KafkaProducer(
-                kafkaSection["BootstrapServers"],
-                kafkaSection["Topic"]
-            ));
+            services.AddScoped<IKafkaProducer>(option => new KafkaProducer(kafkaSection["BootstrapServers"], kafkaSection["Topic"]));
         }
     }
 }

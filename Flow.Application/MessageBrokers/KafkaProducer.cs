@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Flow.Application.MessageBrokers
 {
-    public class KafkaProducer
+    public class KafkaProducer : IKafkaProducer
     {
         private readonly IProducer<string, string> _producer;
         private readonly string _topic;

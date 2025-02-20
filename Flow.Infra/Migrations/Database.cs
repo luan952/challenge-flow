@@ -18,7 +18,6 @@ namespace Flow.Infra.Migrations
 
             var parameters = new { name = databaseName };
 
-            // Tente abrir a conexão
             myConnection.Open();
 
             var registers = myConnection.Query<string>(query, parameters);

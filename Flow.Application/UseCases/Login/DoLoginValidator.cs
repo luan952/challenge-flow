@@ -8,8 +8,8 @@ namespace Flow.Application.UseCases.Login
     {
         public DoLoginValidator()
         {
-            RuleFor(_ => _.Login).NotEmpty().WithMessage(ResourceMessageError.password_empty_error);
-            RuleFor(_ => _.Password).NotEmpty().WithMessage(ResourceMessageError.email_empty_error);
+            RuleFor(_ => _.Login).NotEmpty().WithMessage(ResourceMessageError.login_empty_error);
+            RuleFor(_ => _.Password).NotEmpty().WithMessage(ResourceMessageError.password_empty_error);
         }
     }
 }
