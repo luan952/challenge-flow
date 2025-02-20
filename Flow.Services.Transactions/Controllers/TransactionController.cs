@@ -14,7 +14,7 @@ namespace Flow.Services.Transactions.Controllers
         public async Task<IActionResult> Post([FromBody] TransactionDTO request, [FromServices] IExecuteTransactionUseCase useCase)
         {
             await useCase.Execute(request);
-            return Ok();
+            return Created();
         }
     }
 }

@@ -15,7 +15,11 @@ namespace Flow.Infra.Repositories
 
         public async Task<DailyBalance> FindDailyBalanceByDay(DateTime date)
         {
-            return await _context.DailyBalance.Find(d => d.Date.Date == date.Date).FirstOrDefaultAsync();
+            var filter = Builders<DailyBalance>.Filter.And(
+                Builders<DailyBalance>.Filter.Gte(d => d.Date, date.Date),
+                Builders<DailyBalance>.Filter.Lt(d => d.Date, date.Date.AddDays(1)));
+
+            return await _context.DailyBalance.Find(filter).FirstOrDefaultAsync();
         }
     }
 }
