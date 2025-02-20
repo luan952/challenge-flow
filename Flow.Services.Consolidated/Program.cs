@@ -1,17 +1,13 @@
 using Flow.Application.UseCases.Consolidated;
 using Flow.Infra.Data;
 using Flow.Services.Consolidated.Consumers;
+using Flow.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoSection = builder.Configuration.GetSection("MongoDb");
-builder.Services.AddSingleton(new MongoDbContext(
-        mongoSection["ConnectionString"],
-        mongoSection["Database"]
-    ));
-
 builder.Services.AddHostedService<KafkaBackgroundConsumer>();
-builder.Services.AddScoped<IGetDailyBalanceUseCase, GetDailyBalanceUseCase>();
+
+builder.Services.AddDependencesConsolidatedInfra(builder.Configuration);
 // Add services to the container.
 
 builder.Services.AddControllers();
