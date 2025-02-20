@@ -3,6 +3,7 @@
 Este projeto consiste em duas APIs que trabalham juntas para processar transações financeiras e consolidar saldos diários.
 
 ### 🏗 Arquitetura do Sistema
+![Diagrama da Arquitetura](docs/flow-architecture.jpg)
 
 1. **API de Transações** (`Flow.Services.Transactions`)
    - Registra transações financeiras em um banco de dados SQL Server.
@@ -55,6 +56,12 @@ dotnet run
 
 ---
 
+## Migrations
+
+As migrations do banco de dados são versionadas e criadas automaticamente utilizando o FluentMigrator. Não é necessário criar migrations manualmente. Certifique-se de que as configurações do FluentMigrator estão corretas para garantir a execução das migrações durante a inicialização do sistema. As versões estão na pasta Flow.Infra/Migrations/Versions
+
+---
+
 ## 🔑 Autenticação
 
 Para chamar a API de transações, é necessário autenticar-se.
@@ -88,7 +95,7 @@ Corpo da requisição:
 O retorno será um token JWT, que deve ser enviado no cabeçalho das requisições:
 
 ```sh
-Token: Bearer <seu_token_aqui>
+Token: <seu_token_aqui>
 ```
 
 ---
@@ -100,10 +107,11 @@ Token: Bearer <seu_token_aqui>
 1. **Criar Transação**
    - **Endpoint:** `POST /api/transactions`
    - **Corpo:**
+   - **Type: 1-Crédito, 2-Débito**
    ```json
    {
      "value": 100.0,
-     "type": "Credit"
+     "type": 1
    }
    ```
    - **Resposta:** `201 Created`
@@ -115,7 +123,9 @@ Token: Bearer <seu_token_aqui>
    - **Resposta:**
    ```json
    {
-     "date": "2024-02-20"
+     "id": "67b729b78927ebc7dd5133fc",
+     "date": "2024-02-20",
+     "totalBalance": "70"
    }
    ```
 
@@ -126,17 +136,23 @@ Token: Bearer <seu_token_aqui>
 ### 1️⃣ Criando uma Transação
 
 ```sh
-curl -X POST "http://localhost:5000/api/transactions" \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer <seu_token_aqui>" \
-     -d '{"value": 100, "type": "Credit"}'
+curl -X 'POST' \
+  'http://localhost:5283/api/Transaction' \
+  -H 'accept: */*' \
+  -H "Authorization: Bearer <seu_token_aqui>" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "value": 100,
+  "type": 1
+}'
 ```
 
 ### 2️⃣ Consultando o Saldo Diário
 
 ```sh
-curl -X GET "http://localhost:5001/api/dailybalance?date=2024-02-20" \
-     -H "Authorization: Bearer <seu_token_aqui>"
+curl -X 'GET' \
+  'http://localhost:5237/api/Consolidated/2025-02-20' \
+  -H 'accept: */*'
 ```
 
 ---
